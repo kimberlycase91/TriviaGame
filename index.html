@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="styelsheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -16,6 +18,9 @@
     </div>
 </div>
 
+<button id="startBtn">Start</button>
+
+<div id ="quizDisplay">
 <!-- Timer -->
 <div class = "row">
     <div class = "col-md-12">Time Remaining: <span id = "timer"></span>
@@ -24,20 +29,22 @@
 
 <!--Question-->
 <div class = "row">
-    <div class = "col-md-12">
-        <span id = "question"></span>
+    <div class = "col-md-12">Question: <span id = "question"></span>
     </div>
 </div>
 
 <div class = "row">
     <div class = "col-md-12">
-        <button id = "btnA"></button>
-        <button id = "btnB"></button>
-        <button id = "btnC"></button>
-        <button id = "btnD"></button>
+        <button>A: <span id="btnA"></span></button>
+        <br>
+        <button>B: <span id ="btnB"></span></button>
+        <br>
+        <button>C: <span id ="btnC"></span> </button>
+        <br>
+        <button>D: <span id ="btnD"></span></button>
     </div>
 </div>
-
+</div>
 </div>
 
 
