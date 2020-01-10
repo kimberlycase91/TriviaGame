@@ -15,7 +15,7 @@ var correct = 0; //keeps track of correct answers
 var incorrect = 0; //keeps track of incorrect answers
 var unanswered = 0; //keeps track  of unanswered questions
 var intervalID;
-var time; //holds the time left
+var time = 45; //holds the time left
 var counter = 0; //keeps track of which question is being displayed, starting with i=0
 
 //only display start button on page load
@@ -27,50 +27,56 @@ $(document).ready(function () {
         $("#quizDisplay").toggle();
         $("#startBtn").hide();
         runQuiz();
+        setInterval(countDown, 1000);
     })
 })
 
 function countDown() {
     if (time > 0) {
-        time = 45;
-        $("#timer").html(time);
         time--;
+        $("#timer").text(time + " seconds");
     }
 }
 
 function nextQuestion() {
     if (counter < questions.length - 1) {
         counter++;
+        setInterval(countDown, 1000);
+    }
+
+    else {
+        $("#quizDisplay").hide();
+        $("#startBtn").toggle(); 
+        var results = $("<div>").appendTo(".quizDisplay");
+        $("<p>").appendTo(results).text("Correct: " + correct);
+        $("<p>").appendTo(results).text("Incorrect: " + incorrect);
+        $("<p>").appendTo(results).text("Unanswered: " + unanswered);
     }
 }
 function runQuiz() {
-    setInterval(countDown, 1000);
     displayQuestion()
 
     $(".choice").on("click", function () {
         userInput = $(this).val();
 
         //if time runs out, display correct answer and image and increment unanswered variable by 1
-        if (time == 0) {
+        if (time === 0) {
             unanswered++;
             displayAnswer();
-            nextQuestion();
-            // setTimeout(nextQuestion, 5000)
         }
         //if user selects correct answer, display correct answer and imagne and increment correct variable by 1
         if (userInput === questions[counter].a) {
             correct++;
             displayAnswer();
-            nextQuestion();
-            // setTimeout(nextQuestion, 5000)
         }
         //else if user selects an incorrect anwer, display correct answer and image and increment incorrect variable by 1
-        if (userInput != questions[counter]) {
+        else if (userInput != questions[counter]) {
             incorrect++;
             displayAnswer();
-            nextQuestion();
-            // setTimeout(nextQuestion, 5000)
         }
+        console.log("correct: " + correct);
+        console.log("incorrect: " + incorrect);
+        console.log("unanswered: " + unanswered);
 
     })
 }
@@ -89,11 +95,6 @@ function displayAnswer() {
     $("#btnB").hide();
     $("#btnC").hide();
     $("#btnD").hide();
+    setTimeout(nextQuestion, 3000)
 }
 
-
-
-
-//after each question in the array has been answered, change display to show "Here's how you did!", display correct, incorrect, and unanswered, and a start over button
-
-// }
