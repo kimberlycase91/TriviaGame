@@ -14,22 +14,22 @@ var questions = [
 var correct = 0; //keeps track of correct answers
 var incorrect = 0; //keeps track of incorrect answers
 var unanswered = 0; //keeps track  of unanswered questions
-var intervalID;
+var intervalID; 
 var delayButtonAlert;
 var time = 10; //holds the time left
 var counter = 0; //keeps track of which question is being displayed, starting with i=0
 var answerChosen = 0;
 var results = $("<div>").appendTo(".container").hide();
-        results.addClass("resultsDiv");
-        var correctScore = $("<p>").appendTo(results).text("Correct: " + correct);
-        var incorrectScore = $("<p>").appendTo(results).text("Incorrect: " + incorrect);
-        var unanswered = $("<p>").appendTo(results).text("Unanswered: " + unanswered);
+results.addClass("resultsDiv");
+var correctScore = $("<p>").appendTo(results);
+var incorrectScore = $("<p>").appendTo(results);
+var unansweredScore = $("<p>").appendTo(results);
 
 //only display start button on page load
 $(document).ready(function () {
     $("#quizDisplay").hide();
 
-    //when start button is clicked, hide start button and show quiz content
+    //when start button is clicked, hide start button and results (for restart) and show quiz content
     $("#startBtn").click(function () {
         $("#quizDisplay").toggle();
         $("#startBtn").hide();
@@ -39,47 +39,50 @@ $(document).ready(function () {
         correct = 0;
         incorrect = 0;
         unanswered = 0;
-        runQuiz();
+        displayQuestion();
     })
 })
 
+//restarts time, displays question (loops through )
+function displayQuestion() {
+    time = 10;
+    clearInterval(intervalID);
+    clearInterval(delayButtonAlert);
+    intervalID = setInterval(countDown, 1000);
+    setTimeout(handleNoAnswer, 10000);
+    $("#questionsAnswers").empty();
+    $("#correctAnswer").hide();
+    $("#questionsAnswers").html(questions[counter].q);
+
+    for (var i = 0; i < 4; i++) {
+        var a = $("<button>");
+        a.addClass("distractor");
+        a.attr("data-name", questions[counter].d[i]);
+        a.text(questions[counter].d[i]);
+        $("#questionsAnswers").append(a);
+    }
+
+}
+//after each question in the array has been answered, change display to show "Here's how you did!", display correct, incorrect, and unanswered, and a start over button
+function displayAnswer() {
+    $(".distractor").hide();
+    $("#timer").hide();
+    $("#correctAnswer").show();
+    $("#correctAnswer").text("The correct answer is " + questions[counter].a);
+}
+
+//decrement timer, show in timer div
 function countDown() {
     if (time > 0) {
-        time-=1;
+        time -= 1;
         $("#timer").show();
         $("#timer").text(time + " seconds");
     }
-    delayButtonAlert = setTimeout(handleNoAnswer, 10000);
+    // delayButtonAlert = setTimeout(handleNoAnswer, 10000);
 }
 
-function clearQuestion() {
-    $("#timer").hide();
-    displayAnswer();
-    intervalID = setTimeout(nextQuestion, 3000);
-    delayButtonAlert = setTimeout(handleNoAnswer, 10000);
-}
 
-function nextQuestion() {
-    if (counter < questions.length - 1) {
-        counter++;
-        runQuiz();
-    }
-
-    else {
-        $("#quizDisplay").hide();
-        $("#startBtn").show();
-        $(".resultsDiv").show();
-    }
-}
-
-function runQuiz() {
-    // clearTimeout(intervalID)
-    displayQuestion();
-    // setInterval(countDown, 1000);
-    $("#correctAnswer").hide();
-}
-
-function handleClick () {
+function handleClick() {
     answerChosen = true;
     var userInput = $(this).text();
 
@@ -98,39 +101,34 @@ function handleClick () {
     }
 };
 
-function handleNoAnswer () {
-    if (answerChosen != true) {
+//if no button is clicked, increments unanswered
+function handleNoAnswer() {
         unanswered++;
         clearQuestion();
-    }
-    else {
-        return
-    }
 }
 
-function displayQuestion() {
-    time = 10;
-    clearInterval(intervalID);
-    setInterval(countDown, 1000);
-    $("#questionsAnswers").empty();
-    $("#questionsAnswers").html(questions[counter].q);
-
-    for (var i = 0; i < 4; i++) {
-        var a = $("<button>");
-        a.addClass("distractor");
-        a.attr("data-name", questions[counter].d[i]);
-        a.text(questions[counter].d[i]);
-        $("#questionsAnswers").append(a);
-    }
-}
-
-
-//after each question in the array has been answered, change display to show "Here's how you did!", display correct, incorrect, and unanswered, and a start over button
-function displayAnswer() {
-    $(".distractor").hide();
+function clearQuestion() {
     $("#timer").hide();
-    $("#correctAnswer").show();
-    $("#correctAnswer").text("The correct answer is " + questions[counter].a);
+    displayAnswer();
+    intervalID = setTimeout(nextQuestion, 3000);
 }
+
+function nextQuestion() {
+    if (counter < questions.length - 1) {
+        counter++;
+        displayQuestion();
+        // runQuiz();
+    }
+
+    else {
+        $("#quizDisplay").hide();
+        $("#startBtn").show();
+        $(".resultsDiv").show();
+        $(correctScore).text("Correct: " + correct)
+        $(incorrectScore).text("Incorrect: " + incorrect);
+        $(unansweredScore).text("Unanswered: " + unanswered);
+    }
+}
+
 
 $(document).on("click", ".distractor", handleClick);
