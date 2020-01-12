@@ -14,11 +14,12 @@ var questions = [
 var correct = 0; //keeps track of correct answers
 var incorrect = 0; //keeps track of incorrect answers
 var unanswered = 0; //keeps track  of unanswered questions
-var intervalID; 
-var delayButtonAlert;
-var time = 10; //holds the time left
+var intervalID;
+var time; //holds the time left
 var counter = 0; //keeps track of which question is being displayed, starting with i=0
 var answerChosen = 0;
+var timerID;
+var timesupID;
 var results = $("<div>").appendTo(".container").hide();
 results.addClass("resultsDiv");
 var correctScore = $("<p>").appendTo(results);
@@ -31,7 +32,7 @@ $(document).ready(function () {
 
     //when start button is clicked, hide start button and results (for restart) and show quiz content
     $("#startBtn").click(function () {
-        $("#quizDisplay").toggle();
+        $("#quizDisplay").show();
         $("#startBtn").hide();
         $(".resultsDiv").hide();
         $("#correctAnswer").hide();
@@ -46,10 +47,12 @@ $(document).ready(function () {
 //restarts time, displays question (loops through )
 function displayQuestion() {
     time = 10;
+    $("#timer").show();
+    clearTimeout(timerID);
+    clearTimeout(timesupID)
     clearInterval(intervalID);
-    clearInterval(delayButtonAlert);
     intervalID = setInterval(countDown, 1000);
-    setTimeout(handleNoAnswer, 10000);
+    timesupID = setTimeout(handleNoAnswer, 10005);
     $("#questionsAnswers").empty();
     $("#correctAnswer").hide();
     $("#questionsAnswers").html(questions[counter].q);
@@ -65,8 +68,9 @@ function displayQuestion() {
 }
 //after each question in the array has been answered, change display to show "Here's how you did!", display correct, incorrect, and unanswered, and a start over button
 function displayAnswer() {
-    $(".distractor").hide();
-    $("#timer").hide();
+    clearTimeout(timesupID);
+     $("#timeRemaining").hide();
+     $(".distractor").hide();
     $("#correctAnswer").show();
     $("#correctAnswer").text("The correct answer is " + questions[counter].a);
 }
@@ -75,10 +79,11 @@ function displayAnswer() {
 function countDown() {
     if (time > 0) {
         time -= 1;
+        $("#timeRemaining").show();
         $("#timer").show();
         $("#timer").text(time + " seconds");
     }
-    // delayButtonAlert = setTimeout(handleNoAnswer, 10000);
+
 }
 
 
@@ -110,14 +115,13 @@ function handleNoAnswer() {
 function clearQuestion() {
     $("#timer").hide();
     displayAnswer();
-    intervalID = setTimeout(nextQuestion, 3000);
+    timerID = setTimeout(nextQuestion, 3000);
 }
 
 function nextQuestion() {
     if (counter < questions.length - 1) {
         counter++;
         displayQuestion();
-        // runQuiz();
     }
 
     else {
