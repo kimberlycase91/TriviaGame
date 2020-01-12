@@ -1,15 +1,66 @@
 //global variables 
 var questions = [
     {
-        q: "what color is the sky?",
-        d: ["red", "blue", "green", "yellow"],
-        a: "blue"
+        q: "Who is the youngest Disney princess?",
+        d: ["Ariel", "Belle", "Pocahontas", "Snow White"],
+        a: "Snow White"
     },
     {
-        q: "which is a vowel?",
-        d: ["a", "b", "c", "d"],
-        a: "a"
-    }
+        q: "Which is the only Disney princess with brothers?",
+        d: ["Jasmine", "Merida", "Rapunzel", "Tiana"],
+        a: "Merida"
+    },
+    {
+        q: "Which princess was born royalty?",
+        d: ["Belle", "Cinderella", "Anastasia", "Tianna"],
+        a: "Anastasia"
+    },
+    {
+        q: "Are Anna and Elsa considered Disney princesses?",
+        d: ["Yes", "No"],
+        a: "No"
+    },
+    
+    {
+        q: "Which is the only Disney princess with dimples?",
+        d: ["Ariel", "Merida", "Rapunzel", "Tiana"],
+        a: "Tiana"
+    },
+    {
+        q: "Which is the only Disney princess with a tattoo?",
+        d: ["Jasmine", "Merida", "Mulan", "Pocahontas"],
+        a: "Pocahontas"
+    },
+    {
+        q: "True or false, Tinkerbell was once considered a Disney Princess.",
+        d: ["True", "False"],
+        a: "True"
+    },
+    {
+        q: "Which is the only Disney princess that is not the main character of her movvie?",
+        d: ["Aurora", "Belle", "Jasmine", "Merida"],
+        a: "Jasmine"
+    },
+    {
+        q: "which Disney princess has the biggest eyes?",
+        d: ["Ariel", "Rapunzel", "Moana", "Tiana"],
+        a: "Rapunzel"
+    },
+    {
+        q: "Which Disney princess has a star on the Hollywood Walk of Fame?",
+        d: ["Ariel", "Snow White", "Tiana", "Pocahontas"],
+        a: "Snow White"
+    },
+    {
+        q: "Which is the only princess based on a real person?",
+        d: ["Merida", "Mulan", "Pocahontas", "Snow White"],
+        a: "Pocahontas"
+    },
+    {
+        q: "Which is not a requirement to be an official Disney princess?",
+        d: ["Be born into or become royalty", "Have an animal friend/sidekcik", "Be human or human-like", "Have a primary role in an animated film "],
+        a: "Have an animal friend/sidekcik"
+    },
 ]
 var correct = 0; //keeps track of correct answers
 var incorrect = 0; //keeps track of incorrect answers
@@ -62,15 +113,15 @@ function displayQuestion() {
         a.addClass("distractor");
         a.attr("data-name", questions[counter].d[i]);
         a.text(questions[counter].d[i]);
-        $("#questionsAnswers").append(a);
+        $(a).appendTo("#questionsAnswers").before("<br/>")
     }
 
 }
 //after each question in the array has been answered, change display to show "Here's how you did!", display correct, incorrect, and unanswered, and a start over button
 function displayAnswer() {
     clearTimeout(timesupID);
-     $("#timeRemaining").hide();
-     $(".distractor").hide();
+    $("#timeRemaining").hide();
+    $(".distractor").hide();
     $("#correctAnswer").show();
     $("#correctAnswer").text("The correct answer is " + questions[counter].a);
 }
@@ -108,8 +159,8 @@ function handleClick() {
 
 //if no button is clicked, increments unanswered
 function handleNoAnswer() {
-        unanswered++;
-        clearQuestion();
+    unanswered++;
+    clearQuestion();
 }
 
 function clearQuestion() {
