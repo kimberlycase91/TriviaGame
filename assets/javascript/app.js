@@ -59,7 +59,7 @@ var questions = [
         q: "Which is not a requirement to be an official Disney princess?",
         d: ["Be born into or become royalty", "Have an animal friend/sidekcik", "Be human or human-like", "Have a primary role in an animated film "],
         a: "Have an animal friend/sidekcik",
-        g: "https://media.giphy.com/media/9hGiYPgDydDgI/giphy.mp4"
+        g: "https://media.giphy.com/media/9hGiYPgDydDgI/giphy-downsized.gif"
     },
 ]
 var correct = 0; //keeps track of correct answers
@@ -105,12 +105,10 @@ function displayQuestion() {
     clearTimeout(timesupID)
     clearInterval(intervalID);
     intervalID = setInterval(countDown, 1000);
-    timesupID = setTimeout(handleNoAnswer, 11005);
+    timesupID = setTimeout(handleNoAnswer, 11001);
     $("#questionsAnswers").empty();
     $("#correctAnswer").hide();
     $("#questionsAnswers").html(questions[counter].q); 
-
-    
 
     for (var i = 0; i < 4; i++) {
         var a = $("<button>");
@@ -179,6 +177,7 @@ function clearQuestion() {
 function nextQuestion() {
     if (counter < questions.length - 1) {
         counter++;
+        
         displayQuestion();
     }
 

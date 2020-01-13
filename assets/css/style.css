@@ -5,9 +5,8 @@ body {
     font-family: 'WaltographRegular';
     font-weight: normal;
     font-style: normal;
-    margin-left: 20px;
-    font-size: 40px;
-    color:#F5F5F5;
+    font-size: 50px;
+    color: black;
     display: inline-block;
     
 }
@@ -15,10 +14,14 @@ body {
 #header {
     text-align: left;
     padding: 10px;
+    margin: 10px;
+}
+#header {
+width: 100%;
 }
 
 h1 {
-    font-size: 50px;
+    font-size: 65px;
 }
 
 @keyframes gradient {
@@ -33,15 +36,20 @@ h1 {
     }
 }
 
-.container {
+#maincontainer {
+    position: fixed;;
     min-width: 70%;
     text-align: left;
     padding: 10px;
-    font-size: 40px;
-    color:#F5F5F5;
+    font-size: 50px;
+    color: black;
+    position: fixed;
 }
 
-
+#logo {
+    position: relative;
+    float: right;
+}
 
 #quizDisplay {
     padding: 10px;
@@ -56,15 +64,17 @@ button {
     padding: 10px;
     background-color: lightpink;
     border-radius: 12px;
-    color:#606060;
+    border-color: black;
+    color: black;
     margin: 10px; 
     min-width: 10%;
 }
-.footer {
+/* .footer {
     position: fixed;
+    padding-top: 10px;
     left: 0;
     bottom: 0;
     width: 100%;
     text-align: right;
-  }
+  } */
 
