@@ -3,63 +3,63 @@ var questions = [
     {
         q: "Who is the youngest Disney princess?",
         d: ["Ariel", "Belle", "Pocahontas", "Snow White"],
-        a: "Snow White"
+        a: "Snow White",
+        g: "https://media.giphy.com/media/bCcxY1ADkAqfS/giphy.gif"
     },
     {
         q: "Which is the only Disney princess with brothers?",
         d: ["Jasmine", "Merida", "Rapunzel", "Tiana"],
-        a: "Merida"
+        a: "Merida",
+        g: "https://media.giphy.com/media/bF2Y7oTrvAsmc/giphy.gif"
     },
     {
         q: "Which princess was born royalty?",
         d: ["Belle", "Cinderella", "Anastasia", "Tianna"],
-        a: "Anastasia"
-    },
-    {
-        q: "Are Anna and Elsa considered Disney princesses?",
-        d: ["Yes", "No"],
-        a: "No"
+        a: "Anastasia",
+        g: "https://media.giphy.com/media/hOf2juhUIspmE/giphy-downsized.gif"
     },
     
     {
         q: "Which is the only Disney princess with dimples?",
         d: ["Ariel", "Merida", "Rapunzel", "Tiana"],
-        a: "Tiana"
+        a: "Tiana",
+        g: "https://media.giphy.com/media/aPcKnlcsayAVi/giphy.gif"
     },
     {
         q: "Which is the only Disney princess with a tattoo?",
         d: ["Jasmine", "Merida", "Mulan", "Pocahontas"],
-        a: "Pocahontas"
-    },
-    {
-        q: "True or false, Tinkerbell was once considered a Disney Princess.",
-        d: ["True", "False"],
-        a: "True"
+        a: "Pocahontas",
+        g: "https://media.giphy.com/media/l2JI1JzL6YS8z5KUM/giphy.gif"
     },
     {
         q: "Which is the only Disney princess that is not the main character of her movvie?",
         d: ["Aurora", "Belle", "Jasmine", "Merida"],
-        a: "Jasmine"
+        a: "Jasmine",
+        g: "https://media.giphy.com/media/KBKUi5KdT6nNC/giphy.gif"
     },
     {
         q: "which Disney princess has the biggest eyes?",
         d: ["Ariel", "Rapunzel", "Moana", "Tiana"],
-        a: "Rapunzel"
+        a: "Rapunzel",
+        g: "https://media.giphy.com/media/TP4MmWI5CcDBe/giphy.gif"
     },
     {
         q: "Which Disney princess has a star on the Hollywood Walk of Fame?",
         d: ["Ariel", "Snow White", "Tiana", "Pocahontas"],
-        a: "Snow White"
+        a: "Snow White",
+        g: "https://media.giphy.com/media/uLda64US3sb16/giphy.gif"
     },
     {
         q: "Which is the only princess based on a real person?",
         d: ["Merida", "Mulan", "Pocahontas", "Snow White"],
-        a: "Pocahontas"
+        a: "Pocahontas",
+        g: "https://media.giphy.com/media/d2es4mcF4728w/giphy.gif"
     },
     {
         q: "Which is not a requirement to be an official Disney princess?",
         d: ["Be born into or become royalty", "Have an animal friend/sidekcik", "Be human or human-like", "Have a primary role in an animated film "],
-        a: "Have an animal friend/sidekcik"
+        a: "Have an animal friend/sidekcik",
+        g: "https://media.giphy.com/media/9hGiYPgDydDgI/giphy.mp4"
     },
 ]
 var correct = 0; //keeps track of correct answers
@@ -97,16 +97,20 @@ $(document).ready(function () {
 
 //restarts time, displays question (loops through )
 function displayQuestion() {
-    time = 10;
     $("#timer").show();
+    time = 11;
+    $("#ansImg").attr("src", "");
+    $("#ansImgDiv").hide();
     clearTimeout(timerID);
     clearTimeout(timesupID)
     clearInterval(intervalID);
     intervalID = setInterval(countDown, 1000);
-    timesupID = setTimeout(handleNoAnswer, 10005);
+    timesupID = setTimeout(handleNoAnswer, 11005);
     $("#questionsAnswers").empty();
     $("#correctAnswer").hide();
-    $("#questionsAnswers").html(questions[counter].q);
+    $("#questionsAnswers").html(questions[counter].q); 
+
+    
 
     for (var i = 0; i < 4; i++) {
         var a = $("<button>");
@@ -115,15 +119,18 @@ function displayQuestion() {
         a.text(questions[counter].d[i]);
         $(a).appendTo("#questionsAnswers").before("<br/>")
     }
-
 }
+
 //after each question in the array has been answered, change display to show "Here's how you did!", display correct, incorrect, and unanswered, and a start over button
 function displayAnswer() {
     clearTimeout(timesupID);
+    clearInterval(intervalID);
     $("#timeRemaining").hide();
-    $(".distractor").hide();
+    $("#questionsAnswers").empty();
     $("#correctAnswer").show();
     $("#correctAnswer").text("The correct answer is " + questions[counter].a);
+    $("#ansImgDiv").show();
+    $("#ansImg").attr("src", questions[counter].g);
 }
 
 //decrement timer, show in timer div

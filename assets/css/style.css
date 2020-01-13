@@ -1,0 +1,70 @@
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    font-family: 'WaltographRegular';
+    font-weight: normal;
+    font-style: normal;
+    margin-left: 20px;
+    font-size: 40px;
+    color:#F5F5F5;
+    display: inline-block;
+    
+}
+
+#header {
+    text-align: left;
+    padding: 10px;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.container {
+    min-width: 70%;
+    text-align: left;
+    padding: 10px;
+    font-size: 40px;
+    color:#F5F5F5;
+}
+
+
+
+#quizDisplay {
+    padding: 10px;
+    font-size: 40px;
+    text-align: left;
+    position: relative;
+}
+
+button {
+    position: relative;
+    font-size: 35px;
+    padding: 10px;
+    background-color: lightpink;
+    border-radius: 12px;
+    color:#606060;
+    margin: 10px; 
+    min-width: 10%;
+}
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: right;
+  }
+
